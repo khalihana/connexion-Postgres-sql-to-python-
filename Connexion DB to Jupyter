@@ -1,0 +1,29 @@
+import psycopg2 as pg
+import pandas.io.sql as psql
+connection = pg.connect(database="postgres", user="postgres", password="123456", host="127.0.0.1", port="5432")
+cursor = connection.cursor()
+connection = pg.connect(database="synapse", user="postgres", password="123456", host="127.0.0.1", port="5432")
+cursor = connection.cursor()
+print(cursor)
+connection.close()
+# cree une nouvelle table sur Pgmyadmin 
+connection = pg.connect(database="synapse", user="postgres", password="123456", host="127.0.0.1", port="5432")
+cursor = connection.cursor()
+cursor.execute("CREATE TABLE test3 (id serial PRIMARY KEY, num integer, data varchar);")
+connection.commit()
+connection.close()
+
+import psycopg2 as pg
+import pandas.io.sql as psql
+
+#import dataBase to python pandas 
+con = pg.connect(database="synapse", user="postgres", password="123456", host="127.0.0.1", port="5432")
+cursor = con.cursor()
+sql = "SELECT * FROM filtre"
+df = pd.read_sql('select * from filtre', con)
+con.close()
+
+#######Export dataBase to python pandas ( envoyer à PgMyadmin) 
+from sqlalchemy import create_engine
+engine = create_engine('postgresql+psycopg2://postgres:123456@127.0.0.1:5432/synapse')
+Data.to_sql('khalil2', engine)
